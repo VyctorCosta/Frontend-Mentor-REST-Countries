@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap');
+/* font-family: 'Nunito Sans', sans-serif; */
+
+ul {
+    list-style: none;
+    font-family: 'Nunito Sans', sans-serif;
+    margin: 10px 40px;
+    background-color: purple;
+}
+
+li {
+    background-color: red;
+    width: 400px;
+    display: inline;
+}
+
+.seila {
+    display: inline;
+    background-color: cyan;
+    border: 5px solid;
+    width: 320px
+}
