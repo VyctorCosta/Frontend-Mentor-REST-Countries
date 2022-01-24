@@ -4,19 +4,17 @@
 ul {
     list-style: none;
     font-family: 'Nunito Sans', sans-serif;
-    margin: 10px 40px;
-    background-color: purple;
 }
 
 li {
-    background-color: red;
-    width: 400px;
-    display: inline;
+    display: flex;
+    gap: 8%;
+    margin-left: 10px;
+    margin-bottom: 80px;
+    /* margin: 10px 30px; */
 }
 
-.seila {
-    display: inline;
-    background-color: cyan;
-    border: 5px solid;
-    width: 320px
+.country-body img {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
