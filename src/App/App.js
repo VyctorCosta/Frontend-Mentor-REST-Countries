@@ -1,14 +1,10 @@
-import logo from '../logo.svg';
+
 import './App.css';
-import Header from '../Header/Header.js'
-import Search from '../search/Search.js'
+import Body from '../Body/body';
 
 function App() {
   return (
-    <>
-      <Header />
-      <Search />
-    </>
+      <Body />
   );
 }
 
