@@ -1,27 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap');
 /* font-family: 'Nunito Sans', sans-serif; */
-
-ul {
+.ulBody {
     list-style: none;
     font-family: 'Nunito Sans', sans-serif;
     margin-top: 50px;
-
     padding: 0 40px 0 40px;
 }
 
-li {
+.liBody {
     display: flex;
     gap: 8%;
     margin-left: 10px;
     margin-bottom: 80px;
 }
 
-.country-body img {
+.countryBody img {
     width: 320px;
     height: 240px;
 }
 
-.country-body {
+.countryBody {
     background-color: whitesmoke;
 
     border-radius: 8px;
@@ -33,6 +31,5 @@ li {
 }
 
 .content {
-    
     padding: 0 20px;
 }
