@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap');
+/* font-family: 'Nunito Sans', sans-serif; */
 .countries {
+    font-family: 'Nunito Sans', sans-serif;
     margin: 15px auto 0;
     padding: 15px;
     max-width: 1400px;
@@ -10,7 +13,9 @@
     outline: 0;
     box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
     margin-bottom: 25px;
-    width: 180px;
+    margin-left: 15px;
+    width: 120px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
