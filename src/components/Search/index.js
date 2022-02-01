@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AuthContext } from "../../providers/auth";
 
 export default () => {
-    const { setInputValue, setRegion } = React.useContext(AuthContext);
+    const { setInputValue, setRegion, inputValue, region, setArrayCountries, getInfoApi } = React.useContext(AuthContext);
 
     return (
         <div className='pesquisa'>
         <div className='barradepesquisa'>
             <input type="text" id="search-bar" placeholder="Search for a country..." onChange={event => {
-                setInputValue(event.target.value.toLowerCase());
+                const value = event.target.value.toLowerCase();
+                getInfoApi(setArrayCountries, value, region)
+                setInputValue(value);
             }} />
             
             <div className='icon'>
@@ -18,7 +20,9 @@ export default () => {
 
         <div>
             <select className="listapaises" onChange={e => {
-                setRegion(e.target.value)
+                const regionValue = e.target.value
+                getInfoApi(setArrayCountries, inputValue, regionValue)
+                setRegion(regionValue);
             }}>
                 <option value="">All Regions</option>
                 <option value="Africa">Africa</option>
