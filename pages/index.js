@@ -1,15 +1,16 @@
 import React from "react";
-import Header from "../src/Header";
-import Search from "../src/Search";
-import Body from "../src/Body";
+import Header from "../src/components/Header";
+import Search from "../src/components/Search";
+import Body from "../src/components/Body";
+import { AuthProvider } from "../src/providers/auth";
 
 function HomePage() {
   return (
-    <>
+    <AuthProvider>
       <Header />
       <Search />
       <Body />
-    </>
+    </AuthProvider>
   );
 }
 
