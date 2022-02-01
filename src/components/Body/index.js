@@ -24,7 +24,7 @@ function returnUlTag(array, name) {
             arrayDivs = [];
         }
 
-        div = <div className={styles.countryBody} key={Math.random()} name={element.name.common} onClick={(e) => {
+        div = <div className={styles.countryBody} key={Math.random()} name={element.name.common} onClick={() => {
             route.push(`/countries?name=${element.name.common}`)
         }}>
             <img src={element.flags.png} />

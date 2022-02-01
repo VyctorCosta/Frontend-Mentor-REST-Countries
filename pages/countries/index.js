@@ -1,11 +1,11 @@
-import { useRouter } from "next/router"
-import Countries from "../../src/Countries";
+import Countries from "../../src/components/Countries";
+import Header from "../../src/components/Header";
 
 function NewPage() {
-    const route = useRouter();
 
     return (
         <>
+            <Header />
             <Countries />
         </>
     )
