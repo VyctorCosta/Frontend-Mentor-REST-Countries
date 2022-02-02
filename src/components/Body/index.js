@@ -1,63 +1,46 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import styles from "./Body.module.css";
 import { useRouter } from "next/router";
 import { AuthContext } from "../../providers/auth";
 
-function returnUrl(region) {
-    if (!region) return "https://restcountries.com/v3.1/all";
 
-    return `https://restcountries.com/v3.1/region/${region}`
-}
-
-function returnUlTag(array, name) {
-    const route = useRouter();
+function createElement(array) {
+    if (array.length === 0) return array;
     const arrayLi = [];
-    let arrayCountries = array;
-    let arrayDivs = [];
+    const router = useRouter();
+    let arrayDiv = [];
     let div;
-    if (name) {
-        arrayCountries = array.filter(element => element.name.common.toLowerCase().startsWith(name));
-    }
-    arrayCountries.forEach((element, index) => {
-        if (index !== 0 && index % 4 === 0) {
-            arrayLi.push(<li className={styles.liBody} key={Math.random()}>{arrayDivs}</li>);
-            arrayDivs = [];
-        }
-
-        div = <div className={styles.countryBody} key={Math.random()} name={element.name.common} onClick={() => {
-            route.push(`/countries?name=${element.name.common}`)
+    
+    array.forEach((element, index) => {
+        div = <div className={styles.countryBody} key={index} onClick={(e) => {
+            e.preventDefault();
+            router.push(`/countries?name=${element.name.common}`)
         }}>
             <img src={element.flags.png} />
             <h1>{element.name.common}</h1>
             <p><b>Population:</b> {element.population}</p>
             <p><b>Region:</b> {element.region}</p>
-            <p><b>Capital:</b> {element.capital !== undefined ? element.capital[0] : "Sem capital"}</p>
-        </div>
+            <p><b>Capital:</b> {element.capital !== undefined ? element.capital[0] : "No capital"}</p>
+        </div>;
+        arrayDiv.push(div);
 
-        arrayDivs.push(div)
-        if (element === arrayCountries.slice(-1)[0]) {
-            arrayLi.push(<li className={styles.liBody} key={Math.random()}>{arrayDivs}</li>);
-        }
+        if (arrayDiv.length === 4) {
+            arrayLi.push(<li className={styles.liBody} key={index*10}>{arrayDiv}</li>);
+            arrayDiv = [];
+        } else if (element === array[array.length-1]) arrayLi.push(<li className={styles.liBody} key={index*10}>{arrayDiv}</li>);
     })
+
     return arrayLi;
 }
 
-async function request(url, setArrayCountries) {
-    const response = await fetch(url);
-    const arrayCountries = await response.json();
-    setArrayCountries(arrayCountries);
-}
-
 function Body() {
-    const [arrayCountries, setArrayCountries] = React.useState([]);
-    const { region } = React.useContext(AuthContext);
-    const { inputValue } = React.useContext(AuthContext);
-    const url = returnUrl(region);
-    request(url, setArrayCountries);
-    
+    const {arrayCountries, setArrayCountries, inputValue, region, getInfoApi} = React.useContext(AuthContext);
+    useEffect(() => {
+        getInfoApi(setArrayCountries, inputValue, region)
+    }, [])
     return (
         <>
-            <ul className={styles.ulBody}>{returnUlTag(arrayCountries, inputValue)}</ul>      
+            <ul>{createElement(arrayCountries)}</ul>            
         </>
     );
 }

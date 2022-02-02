@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from './Countries.module.css';
 import { useRouter } from 'next/router';
 
@@ -12,15 +12,17 @@ async function getApiInfo(name, setCountryInfo) {
 
 function Countries(props) {
   const [countryInfo, setCountryInfo] = React.useState(undefined);
-  const route = useRouter();
-  getApiInfo(route.query.name, setCountryInfo)
+  const router = useRouter();
+  useEffect(() => {
+    getApiInfo(router.query.name, setCountryInfo)
+}, [])
 
   if (!countryInfo) return (<></>);
 
   return (
   <div className={style.countries}>
     <button className={style.back} onClick={() => {
-      route.back();
+      router.back();
     }}>
       <img src='https://cdn-icons-png.flaticon.com/512/109/109618.png' alt='Seta para esquerda' height={20} width={20} />
       <p>Go Back</p>
