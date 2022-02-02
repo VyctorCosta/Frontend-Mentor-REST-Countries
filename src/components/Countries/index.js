@@ -25,7 +25,7 @@ function Countries(props) {
       router.back();
     }}>
       <img src='https://cdn-icons-png.flaticon.com/512/109/109618.png' alt='Seta para esquerda' height={20} width={20} />
-      <p>Go Back</p>
+      <p>Back</p>
     </button>
 
     <div className={style.detailsBody}>

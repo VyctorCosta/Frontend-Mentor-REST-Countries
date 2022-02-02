@@ -17,7 +17,7 @@ function createElement(array) {
             router.push(`/countries?name=${element.name.common}`)
         }}>
             <img src={element.flags.png} />
-            <h1>{element.name.common}</h1>
+            <h2>{element.name.common}</h2>
             <p><b>Population:</b> {element.population}</p>
             <p><b>Region:</b> {element.region}</p>
             <p><b>Capital:</b> {element.capital !== undefined ? element.capital[0] : "No capital"}</p>
@@ -40,7 +40,7 @@ function Body() {
     }, [])
     return (
         <>
-            <ul>{createElement(arrayCountries)}</ul>            
+            <ul className={styles.ulBody}>{createElement(arrayCountries)}</ul>            
         </>
     );
 }
