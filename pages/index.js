@@ -1,13 +1,16 @@
 import React from "react";
-import { useRouter } from "next/router";
+import Header from "../src/components/Header";
+import Search from "../src/components/Search";
+import Body from "../src/components/Body";
+import { AuthProvider } from "../src/providers/auth";
 
 function HomePage() {
-  const route = useRouter();
-
   return (
-    <>
-      <h1>Teste</h1>
-    </>
+    <AuthProvider>
+      <Header />
+      <Search />
+      <Body />
+    </AuthProvider>
   );
 }
 
