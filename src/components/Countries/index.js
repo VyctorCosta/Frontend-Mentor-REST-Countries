@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import style from './Countries.module.css';
 import { useRouter } from 'next/router';
+import { AuthContext } from "../../providers/auth";
 
 async function getApiInfo(name, setCountryInfo) {
   const url = `https://restcountries.com/v3.1/name/${name}`;
@@ -12,19 +13,34 @@ async function getApiInfo(name, setCountryInfo) {
 
 function Countries(props) {
   const [countryInfo, setCountryInfo] = React.useState(undefined);
+  const { darkMode, setDarkMode } = React.useContext(AuthContext);
   const router = useRouter();
+  const x = Boolean(router.query.darkMode)
+
+  console.log(`boolean x: ${! x}`)
+  console.log(`router: ${router.query.darkMode}`)
   useEffect(() => {
+  if (router.query.darkMode) setDarkMode(Boolean(router.query.darkMode));
     getApiInfo(router.query.name, setCountryInfo)
-}, [])
+    console.log("darkmode", darkMode)
+  }, [])
+  useEffect(() => {
+    document.body.className = darkMode ? "Dark" : "Light";
+  }, [darkMode])
 
   if (!countryInfo) return (<></>);
 
   return (
   <div className={style.countries}>
-    <button className={style.back} onClick={() => {
-      router.back();
+    <button className={darkMode ? style.backDark : style.back} onClick={() => {
+      router.push({
+        pathname: "/",
+        query: {
+          darkMode
+        }
+      });
     }}>
-      <img src='https://cdn-icons-png.flaticon.com/512/109/109618.png' alt='Seta para esquerda' height={20} width={20} />
+      <img src={darkMode ? '/img/arrowDark.png' : '/img/arrow.png'} alt='Seta para esquerda' height={20} width={20} />
       <p>Back</p>
     </button>
 
@@ -32,7 +48,7 @@ function Countries(props) {
       <div className={style.imgCountry}>
         <img src={countryInfo.flags.png} alt='Bandeira do país' />
       </div>
-      <div className={style.data}>
+      <div className={darkMode ? style.dataDark : style.data}>
         <h2>{countryInfo.name.common}</h2>
         <div className={style.dataContainer}>
           <div className={style.leftData}>
@@ -71,13 +87,13 @@ function Countries(props) {
             </div>
         </div>
       Border Countries:
-      <div className={style.borderCountry}>
+      <div className={darkMode ? style.borderCountryDark : style.borderCountry}>
         <p>{(countryInfo.borders && countryInfo.borders[0]) ? countryInfo.borders[0] : "Not Exists"}</p>
       </div>
-      <div className={style.borderCountry}>
+      <div className={darkMode ? style.borderCountryDark : style.borderCountry}>
         <p>{(countryInfo.borders && countryInfo.borders[1]) ? countryInfo.borders[1] : "Not Exists"}</p>
       </div>
-      <div className={style.borderCountry}>
+      <div className={darkMode ? style.borderCountryDark : style.borderCountry}>
         <p>{(countryInfo.borders && countryInfo.borders[2]) ? countryInfo.borders[2] : "Not Exists"}</p>
       </div>
       </div>

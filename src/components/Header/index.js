@@ -1,13 +1,20 @@
 import React from "react";
 import Style from './header.module.css'
+import { AuthContext } from "../../providers/auth";
 
 function Header() {
+    const { darkMode, setDarkMode } = React.useContext(AuthContext);
+
     return (
-        <div className={Style.navbar}>
+        <div className={darkMode ? Style.navbarDark : Style.navbar}>
             <h1>Where in the world?</h1>
 
-            <div className={Style.darkmode}>
-                <img src="https://img.icons8.com/external-dreamstale-lineal-dreamstale/32/000000/external-moon-weather-dreamstale-lineal-dreamstale-6.png"/>
+            <div className={darkMode ? Style.darkModeButtonDark : Style.darkModeButtonLight}
+            onClick={() => {
+                setDarkMode(!darkMode);
+            }}
+            >
+                <img src={darkMode ? "/img/moonDark.png" : "/img/moon.png"}/>
                 <h3>Dark Mode</h3>
             </div>
     </div>

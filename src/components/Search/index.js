@@ -3,11 +3,11 @@ import { AuthContext } from "../../providers/auth";
 import Style from './search.module.css'
 
 export default () => {
-    const { setInputValue, setRegion, inputValue, region, setArrayCountries, getInfoApi } = React.useContext(AuthContext);
+    const { setInputValue, setRegion, inputValue, region, setArrayCountries, getInfoApi, darkMode } = React.useContext(AuthContext);
 
     return (
         <div className={Style.pesquisa}>
-        <div className={Style.barradepesquisa}>
+        <div className={darkMode ? Style.barradepesquisaDark : Style.barradepesquisa}>
             <input type="text" id="search-bar" placeholder="Search for a country..." onChange={event => {
                 const value = event.target.value.toLowerCase();
                 getInfoApi(setArrayCountries, value, region)
@@ -20,7 +20,7 @@ export default () => {
         </div>
 
         <div>
-            <select className={Style.listapaises} onChange={e => {
+            <select className={darkMode ? Style.listapaisesDark : Style.listapaises} onChange={e => {
                 const regionValue = e.target.value
                 getInfoApi(setArrayCountries, inputValue, regionValue)
                 setRegion(regionValue);

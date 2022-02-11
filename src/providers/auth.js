@@ -12,9 +12,21 @@ export const AuthProvider = (props) => {
     const [arrayCountries, setArrayCountries] = React.useState([]);
     const [inputValue, setInputValue] = React.useState("");
     const [region, setRegion] = React.useState("");
+    const [darkMode, setDarkMode] = React.useState(false);
 
     return (
-        <AuthContext.Provider value={{inputValue, setInputValue, region, setRegion, arrayCountries, setArrayCountries, getInfoApi}}>
+        <AuthContext.Provider value={{
+            inputValue,
+            setInputValue,
+            region,
+            setRegion,
+            arrayCountries,
+            setArrayCountries,
+            getInfoApi,
+            darkMode,
+            setDarkMode
+            }
+        }>
             {props.children}
         </AuthContext.Provider>
     )

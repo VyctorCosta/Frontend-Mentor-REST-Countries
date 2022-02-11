@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { AuthContext } from "../../providers/auth";
 
 
-function createElement(array) {
+function createElement(array, darkMode) {
     if (array.length === 0) return array;
     const arrayLi = [];
     const router = useRouter();
@@ -12,9 +12,15 @@ function createElement(array) {
     let div;
     
     array.forEach((element, index) => {
-        div = <div className={styles.countryBody} key={index} onClick={(e) => {
+        div = <div className={darkMode ? styles.countryBodyDark : styles.countryBody} key={index} onClick={(e) => {
             e.preventDefault();
-            router.push(`/countries?name=${element.name.common}`)
+            router.push({
+                pathname: "/countries",
+                query: {
+                    name: element.name.common,
+                    darkMode
+                }
+            })
         }}>
             <img src={element.flags.png} />
             <h2>{element.name.common}</h2>
@@ -34,13 +40,23 @@ function createElement(array) {
 }
 
 function Body() {
-    const {arrayCountries, setArrayCountries, inputValue, region, getInfoApi} = React.useContext(AuthContext);
+    const {arrayCountries, setArrayCountries, inputValue, region, getInfoApi, darkMode, setDarkMode} = React.useContext(AuthContext);
+    const router = useRouter();
+    const x = Boolean(router.query.darkMode)
+    console.log(`boolean x: ${x}`)
+    console.log(`router: ${router.query.darkMode}`)
+
     useEffect(() => {
+        if (router.query.darkMode) setDarkMode(x);
+        console.log("darkmode", darkMode)
         getInfoApi(setArrayCountries, inputValue, region)
     }, [])
+    useEffect(() => {
+        document.body.className = darkMode ? "Dark" : "Light";
+    }, [darkMode])
     return (
         <>
-            <ul className={styles.ulBody}>{createElement(arrayCountries)}</ul>            
+            <ul className={styles.ulBody}>{createElement(arrayCountries, darkMode)}</ul>            
         </>
     );
 }

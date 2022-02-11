@@ -1,5 +1,13 @@
 .navbar {
     background-color: white;
+}
+
+.navbarDark {
+    background-color: hsl(209, 23%, 22%);
+    color: white;
+}
+
+.navbar, .navbarDark {
 
     padding-left: 50px;
     padding-right: 50px;
@@ -19,7 +27,16 @@
 
 }
 
-.darkmode {
+.darkModeButtonLight {
+    background-color: white;
+}
+
+.darkModeButtonDark {
+    background-color: hsl(209, 23%, 22%);
+    color: white
+}
+
+.darkModeButtonLight, .darkModeButtonDark {
     font-family: 'Nunito Sans', sans-serif;
 
     display: flex;
@@ -32,6 +49,6 @@
     cursor: pointer;
 }
 
-.darkmode img {
+.darkModeButtonLight img, .darkModeButtonDark img {
     padding-right: 10px;
 }
