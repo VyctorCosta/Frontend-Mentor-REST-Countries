@@ -2,15 +2,18 @@ import React from "react";
 import Header from "../src/components/Header";
 import Search from "../src/components/Search";
 import Body from "../src/components/Body";
-import { AuthProvider } from "../src/providers/auth";
+import { ThemeProvider } from "styled-components";
+import { useAuth } from "../src/providers/auth";
 
 function HomePage() {
+  const { theme } = useAuth();
+
   return (
-    <AuthProvider>
+    <ThemeProvider theme={theme}>
       <Header />
       <Search />
       <Body />
-    </AuthProvider>
+    </ThemeProvider>
   );
 }
 

@@ -1,24 +1,32 @@
-function GlobalStyle() {
-    return (
-        <style global jsx>{`
-        .Dark {
-            background-color: hsl(207, 26%, 17%);
+import { createGlobalStyle } from "styled-components";
+import { AuthProvider } from "../src/providers/auth";
+
+const GlobalStyle = createGlobalStyle`
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
         }
 
-        .Light {
-            background-color: white;
+        body {
+            font-family: 'Nunito Sans', sans-serif;
         }
 
-        `}</style>    
-    )
-}
+        ul, ol, li {
+            list-decoration: none
+        }
+
+        a {
+            text-decoration: none;
+        }
+`;
 
 function App({ Component, pageProps }) {
     return (
-        <>
+        <AuthProvider>
             <GlobalStyle />
             <Component {...pageProps} />
-        </>
+        </AuthProvider>
     );
 }
 

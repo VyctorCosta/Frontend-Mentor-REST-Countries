@@ -11,36 +11,30 @@ async function getApiInfo(name, setCountryInfo) {
 }
 
 
-function Countries(props) {
+function Countries() {
   const [countryInfo, setCountryInfo] = React.useState(undefined);
-  const { darkMode, setDarkMode } = React.useContext(AuthContext);
+  // const { darkMode, setDarkMode } = React.useContext(AuthContext);
   const router = useRouter();
-  const x = Boolean(router.query.darkMode)
+  console.log(router.query)
 
-  console.log(`boolean x: ${! x}`)
-  console.log(`router: ${router.query.darkMode}`)
   useEffect(() => {
-  if (router.query.darkMode) setDarkMode(Boolean(router.query.darkMode));
     getApiInfo(router.query.name, setCountryInfo)
-    console.log("darkmode", darkMode)
+    
   }, [])
-  useEffect(() => {
-    document.body.className = darkMode ? "Dark" : "Light";
-  }, [darkMode])
 
   if (!countryInfo) return (<></>);
 
   return (
   <div className={style.countries}>
-    <button className={darkMode ? style.backDark : style.back} onClick={() => {
+    <button className={style.backDark} onClick={() => {
       router.push({
         pathname: "/",
         query: {
-          darkMode
+          
         }
       });
     }}>
-      <img src={darkMode ? '/img/arrowDark.png' : '/img/arrow.png'} alt='Seta para esquerda' height={20} width={20} />
+      <img src={'/img/arrowDark.png'} alt='Seta para esquerda' height={20} width={20} />
       <p>Back</p>
     </button>
 
@@ -48,7 +42,7 @@ function Countries(props) {
       <div className={style.imgCountry}>
         <img src={countryInfo.flags.png} alt='Bandeira do país' />
       </div>
-      <div className={darkMode ? style.dataDark : style.data}>
+      <div className={style.dataDark}>
         <h2>{countryInfo.name.common}</h2>
         <div className={style.dataContainer}>
           <div className={style.leftData}>
@@ -87,13 +81,13 @@ function Countries(props) {
             </div>
         </div>
       Border Countries:
-      <div className={darkMode ? style.borderCountryDark : style.borderCountry}>
+      <div className={style.borderCountryDark}>
         <p>{(countryInfo.borders && countryInfo.borders[0]) ? countryInfo.borders[0] : "Not Exists"}</p>
       </div>
-      <div className={darkMode ? style.borderCountryDark : style.borderCountry}>
+      <div className={style.borderCountryDark}>
         <p>{(countryInfo.borders && countryInfo.borders[1]) ? countryInfo.borders[1] : "Not Exists"}</p>
       </div>
-      <div className={darkMode ? style.borderCountryDark : style.borderCountry}>
+      <div className={style.borderCountryDark}>
         <p>{(countryInfo.borders && countryInfo.borders[2]) ? countryInfo.borders[2] : "Not Exists"}</p>
       </div>
       </div>

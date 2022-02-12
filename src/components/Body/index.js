@@ -1,25 +1,78 @@
 import React, { useEffect } from "react";
-import styles from "./Body.module.css";
+import Style from "styled-components";
 import { useRouter } from "next/router";
-import { AuthContext } from "../../providers/auth";
+import { useAuth } from "../../providers/auth";
 
+const Ul = Style.ul`
+    background-color: ${({ theme }) => theme.backgroundColor};
+    padding: 50px 50px;
+`;
 
-function createElement(array, darkMode) {
+const Li = Style.li`
+    justify-content: space-between;
+    display: flex;
+    gap: 8%;
+    margin-left: 10px;
+    margin-bottom: 80px;
+`;
+
+const Div = Style.div`
+    background-color: ${({ theme }) => theme.elementsColor};
+    color: ${({ theme }) => theme.textColor};
+    justify-content: space-around;
+
+    font-size: 10pt;
+
+    cursor: pointer;
+    border-radius: 4px;
+    overflow: hidden;
+    padding-bottom: 2rem;
+
+    
+    width: 320px;
+    height: 350px;
+
+    box-shadow: 0px 5px 8px rgba(0,0,0,0.15);
+
+    img {
+        width: 100%;
+        height: 200px;
+    }
+
+    h2 {
+        padding-left: 1.5rem;
+        padding-top: 1.6rem;
+        padding-bottom: 0.5rem;
+        font-size: 15pt;
+    }
+
+    p {
+        padding-left: 1.5rem;
+        padding-top: 0.5rem;
+
+    }
+`;
+
+async function getInfoApi(setArrayCountries, name, region) {
+    const response = await fetch(`/api/home?name=${name}&region=${region}`);
+    const array = await response.json();
+    setArrayCountries(array);
+}
+
+function createElement(array, router) {
     if (array.length === 0) return array;
     const arrayLi = [];
-    const router = useRouter();
     let arrayDiv = [];
     let div;
     
     array.forEach((element, index) => {
-        div = <div className={darkMode ? styles.countryBodyDark : styles.countryBody} key={index} onClick={(e) => {
+        div = <Div key={index} onClick={(e) => {
             e.preventDefault();
             router.push({
-                pathname: "/countries",
+                pathname: "/[name]",
                 query: {
                     name: element.name.common,
-                    darkMode
-                }
+                },
             })
         }}>
             <img src={element.flags.png} />
@@ -27,36 +80,30 @@ function createElement(array, darkMode) {
             <p><b>Population:</b> {element.population}</p>
             <p><b>Region:</b> {element.region}</p>
             <p><b>Capital:</b> {element.capital !== undefined ? element.capital[0] : "No capital"}</p>
-        </div>;
+        </Div>;
         arrayDiv.push(div);
 
         if (arrayDiv.length === 4) {
-            arrayLi.push(<li className={styles.liBody} key={index*10}>{arrayDiv}</li>);
+            arrayLi.push(<Li key={index*10}>{arrayDiv}</Li>);
             arrayDiv = [];
-        } else if (element === array[array.length-1]) arrayLi.push(<li className={styles.liBody} key={index*10}>{arrayDiv}</li>);
+        } else if (element === array[array.length-1]) arrayLi.push(<Li key={index*10}>{arrayDiv}</Li>);
     })
 
     return arrayLi;
 }
 
 function Body() {
-    const {arrayCountries, setArrayCountries, inputValue, region, getInfoApi, darkMode, setDarkMode} = React.useContext(AuthContext);
+    const {arrayCountries, setArrayCountries, inputValue, region} = useAuth();
     const router = useRouter();
-    const x = Boolean(router.query.darkMode)
-    console.log(`boolean x: ${x}`)
-    console.log(`router: ${router.query.darkMode}`)
 
+    
     useEffect(() => {
-        if (router.query.darkMode) setDarkMode(x);
-        console.log("darkmode", darkMode)
         getInfoApi(setArrayCountries, inputValue, region)
-    }, [])
-    useEffect(() => {
-        document.body.className = darkMode ? "Dark" : "Light";
-    }, [darkMode])
+    }, [inputValue, region])
+
     return (
         <>
-            <ul className={styles.ulBody}>{createElement(arrayCountries, darkMode)}</ul>            
+            <Ul>{createElement(arrayCountries, router)}</Ul>          
         </>
     );
 }

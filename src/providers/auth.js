@@ -1,33 +1,37 @@
 import React from 'react';
 
-async function getInfoApi(setArrayCountries, name, region) {
-    const response = await fetch(`/api/home?name=${name}&region=${region}`);
-    const array = await response.json();
-    setArrayCountries(array);
-}
+import Themes from "../themes";
 
-export const AuthContext = React.createContext({});
+const AuthContext = React.createContext({});
 
 export const AuthProvider = (props) => {
     const [arrayCountries, setArrayCountries] = React.useState([]);
     const [inputValue, setInputValue] = React.useState("");
-    const [region, setRegion] = React.useState("");
+    const [region, setRegion] = React.useState("america");
     const [darkMode, setDarkMode] = React.useState(false);
+    const [theme, setTheme] = React.useState(Themes.light)
+    
+    const toggleTheme = () => {
+        setDarkMode(!darkMode);
+        setTheme(theme === Themes.light ? Themes.dark : Themes.light);
+    }
 
     return (
         <AuthContext.Provider value={{
+            arrayCountries,
+            setArrayCountries,
             inputValue,
             setInputValue,
             region,
             setRegion,
-            arrayCountries,
-            setArrayCountries,
-            getInfoApi,
+            theme,
             darkMode,
-            setDarkMode
+            toggleTheme
             }
         }>
             {props.children}
         </AuthContext.Provider>
     )
 }
+
+export const useAuth = () => React.useContext(AuthContext);
