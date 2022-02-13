@@ -69,10 +69,7 @@ function createElement(array, router) {
         div = <Div key={index} onClick={(e) => {
             e.preventDefault();
             router.push({
-                pathname: "/[name]",
-                query: {
-                    name: element.name.common,
-                },
+                pathname: `/${element.name.common}`,
             })
         }}>
             <img src={element.flags.png} />
