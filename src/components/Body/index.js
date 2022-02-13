@@ -4,12 +4,12 @@ import { useRouter } from "next/router";
 import { useAuth } from "../../providers/auth";
 
 const Ul = Style.ul`
+    height: 100%;
     background-color: ${({ theme }) => theme.backgroundColor};
-    padding: 50px 50px;
+    padding: 50px 50px 35% 50px;
 `;
 
 const Li = Style.li`
-    justify-content: space-between;
     display: flex;
     gap: 8%;
     margin-left: 10px;

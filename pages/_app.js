@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import { AuthProvider } from "../src/providers/auth";
+import Head from "next/head";
 
 const GlobalStyle = createGlobalStyle`
         * {

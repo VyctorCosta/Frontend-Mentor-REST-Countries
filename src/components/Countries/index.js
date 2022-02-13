@@ -74,7 +74,7 @@ const DivDataContainer = Style.div`
 `;
 
 const DivBorderCountry = Style.div`
-  background-color: ${({ theme }) => theme.elementsColor};
+  background-color: 
   color: ${({ theme }) => theme.textColor};
 
   border-radius: 2px;
@@ -88,6 +88,10 @@ const DivBorderCountry = Style.div`
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
 `;
 
+const Loading = Style.div`
+  background-color: ${({ theme }) => theme.backgroundColor};
+  padding: 100%;
+`;
 
 function Countries() {
   const [countryInfo, setCountryInfo] = React.useState(undefined);
@@ -105,7 +109,7 @@ function Countries() {
     getApiInfo(router.query.name)
   }, [])
 
-  if (!countryInfo) return (<></>);
+  if (!countryInfo) return (<Loading></Loading>);
 
   return (
   <DivCountries>

@@ -7,7 +7,7 @@ const AuthContext = React.createContext({});
 export const AuthProvider = (props) => {
     const [arrayCountries, setArrayCountries] = React.useState([]);
     const [inputValue, setInputValue] = React.useState("");
-    const [region, setRegion] = React.useState("america");
+    const [region, setRegion] = React.useState("");
     const [darkMode, setDarkMode] = React.useState(false);
     const [theme, setTheme] = React.useState(Themes.light)
     
